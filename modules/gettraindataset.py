@@ -232,9 +232,9 @@ def get_train_dataset(input_path, output_path, frameSize=(128, 128)):
             warning.close()
         return
 
-    # png_files = [os.path.join(folder, f) for f in os.listdir(folder) if f.lower().endswith(img_format)]
+    # images_filenames = [os.path.join(folder, f) for f in os.listdir(folder) if f.lower().endswith(img_format)]
     # filenames_only = [f for f in os.listdir(folder) if f.lower().endswith(img_format)]
-    # filenum, filename = 0, png_files[0]
+    # filenum, filename = 0, images_filenames[0]
 
     images_filenames = [os.path.join(folder, f) for f in os.listdir(folder) if f.lower().endswith(str(img_format))]
     # print(images_filenames)
@@ -277,6 +277,7 @@ def get_train_dataset(input_path, output_path, frameSize=(128, 128)):
         [sg.HSeparator()],
         [sg.Cancel(button_text=buttons[5], size=(47, 1), button_color='teal'), ],
     ]
+    
     image_viewer_column = [
         [sg.Text(list_text[2])],
         [sg.Text(size=(60, 1), key="-TOUT-")],
@@ -353,7 +354,7 @@ def get_train_dataset(input_path, output_path, frameSize=(128, 128)):
         if event == "-FOLDER-":
             folder = values["-FOLDER-"] + '/detect/'
             filenum = 0
-            png_files = [os.path.join(folder, f) for f in os.listdir(folder) if f.lower().endswith(img_format)]
+            images_filenames = [os.path.join(folder, f) for f in os.listdir(folder) if f.lower().endswith(img_format)]
             filenames_only = [f for f in os.listdir(folder) if f.lower().endswith(img_format)]
             filename = os.path.join(folder, filenames_only[filenum])
 
@@ -397,7 +398,7 @@ def get_train_dataset(input_path, output_path, frameSize=(128, 128)):
             text = read_label_file(label_filename)
         elif event == "-FILE LIST-":  # A file was chosen from the listbox
             filename = os.path.join(folder, values['-FILE LIST-'][0])
-            filenum = png_files.index(filename)
+            filenum = images_filenames.index(filename)
             label_filename = str(filename)[:-20] + '/labels' + str(filename)[-20:-4] + '.txt'
             text = read_label_file(label_filename)
         elif event == buttons[12]:
@@ -406,7 +407,7 @@ def get_train_dataset(input_path, output_path, frameSize=(128, 128)):
                 files_to_dataset.append(filename)
             else:
                 files_to_dataset.clear()
-                files_to_dataset = png_files
+                files_to_dataset = images_filenames
             copy_to_dataset(files_to_dataset, output_path)
         elif event == "-SELECT_ALL-":
             if not select_all:
@@ -418,7 +419,7 @@ def get_train_dataset(input_path, output_path, frameSize=(128, 128)):
             # filenum = 0
             if filenum >= len(filenames_only) - 1:
                 filenum -= 1
-            png_files = [os.path.join(folder, f) for f in os.listdir(folder) if f.lower().endswith(img_format)]
+            images_filenames = [os.path.join(folder, f) for f in os.listdir(folder) if f.lower().endswith(img_format)]
             filenames_only = [f for f in os.listdir(folder) if f.lower().endswith(img_format)]
             filename = os.path.join(folder, filenames_only[filenum])
             label_filename = str(filename)[:-20] + '/labels' + str(filename)[-20:-4] + '.txt'
@@ -465,6 +466,7 @@ def get_train_dataset(input_path, output_path, frameSize=(128, 128)):
         window_view["-LABEL NAME-"].update(label_filename)
         window_view["-LABEL-"].update(text)
         window_view["-TOUT-"].update(filename)
+        
         if img_format == 'jpg':
             # img = cv2.imread(filename[:-4] + '.jpg')
             # color_converted = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -473,7 +475,9 @@ def get_train_dataset(input_path, output_path, frameSize=(128, 128)):
             image = Image.open(open_image_name)
             save_image_name = filename[:-4] + '.png'
             image.save(save_image_name, format="PNG")
-
+        
+        save_image_name = filename[:-4] + '.png'
+        
         window_view["-IMAGE-"].update(filename=save_image_name)
         if img_format == 'jpg':
             os.remove(filename[:-4] + '.png')
