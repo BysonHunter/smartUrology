@@ -1,0 +1,22 @@
+# Smart Urology Decision configuration file
+
+# paths:
+default_input_dicom_folder: "C:/kidney/patients/"  # DICOM files folders:
+default_output_folder: "C:/kidney/out/"  # images output folders:
+  # folder to YOLOv5 model for detecting
+
+path_to_yolo_weights : "C:/kidney/modules/weights/kidney060222_last.pt"  #model_paths :
+#  stable_model: !!str &stbl  "weights/kidney060222_last.pt"
+#  experimental_model: !!str &expr "weights/kidney_best060722.pt"
+
+lang_of_interface : "ru" # interface language
+#languages:
+#  русский: !!str &ru "ru"
+#  english: !!str &en "en"
+
+current_color_theme : "SandyBeach" #color scheme of interface
+#color_themes :
+#  scheme1: !!str &scheme1 "SystemDefault"
+#  scheme2: !!str &scheme2 "SystemDefaultForReal"
+#  scheme3: !!str &scheme3 "SandyBeach"
+

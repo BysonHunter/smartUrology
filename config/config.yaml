@@ -1,0 +1,7 @@
+- lang_of_interface: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
+- path_to_yolo_weights: F:/projects/SUD/weights/kid_best2908.pt
+- default_input_dicom_folder: F:/projects/SUD/patients
+- default_output_folder: F:/projects/SUD/out
+- current_color_theme: SystemDefault
+- image_count: '200'
+- image_format: png
