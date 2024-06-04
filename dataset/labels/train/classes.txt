@@ -1,0 +1,6 @@
+left_kidney
+stone
+right_kidney
+left_kidney_pieloectasy
+right_kidney_pieloectasy
+staghorn_stones
